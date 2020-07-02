@@ -10,8 +10,7 @@ class Bot:
         """
         Inicializa o bot com os parâmetros necessários e os handlers
         """
-        token = '997781057:AAE7rRRiSUHiJ7fnB6ywhgbRyDyV3P_YPR4'
-        # token = os.environ.get('TELEGRAM_TOKEN')
+        token = os.environ.get('TELEGRAM_TOKEN')
         self.updater = Updater(token=token, use_context=True)
         self.dispatcher = self.updater.dispatcher
 
