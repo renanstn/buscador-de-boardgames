@@ -13,16 +13,6 @@ class Scrapper:
         """
         # URLs
         self.url_anuncios = os.environ.get('URL_ANUNCIOS', 'https://www.ludopedia.com.br/anuncios')
-        # Elemento que armazena o painel principal
-        self.element_results = 'row'
-        # Elemento que armazena cada item no resultado da busca
-        self.element_item = 'item-leilao'
-        # Elemento que armazena o nome do jogo
-        self.element_name = 'link-elipsis'
-        # Elemento que armazena o valor do jogo
-        self.element_value = 'prod-preco'
-        # Elemento que armazena a categoria
-        self.element_category = 'box-anuncio-title'
 
     def __get(self, url, name):
         """
@@ -43,22 +33,23 @@ class Scrapper:
         response = self.__get(self.url_anuncios, name)
         bs4 = BeautifulSoup(response.text, 'html.parser')
 
-        result_list = bs4.find('ul', class_=self.element_results)
+        result_list = bs4.find('ul', class_='row')
         itens = result_list.find_all('li')
         results = []
 
         for item in itens:
-            category = item.find('div', class_=self.element_category)
-            print(category.text)
-            # name = item.find('a', class_=self.element_name)
-            # value = item.find('span', class_=self.element_value)
-            # link = item.find('a')
+            dl = item.find('dl')
+
+            name = item.find('a', class_='link-elipsis')
+            category = item.find('div', class_='box-anuncio-title')
+            link = dl.find('a')
+            value = dl.find('dd', class_='proximo_lance')
 
             results.append({
-                # 'category': category.text,
-                # 'name': name.text,
-                # 'value': value.text,
-                # 'link': link['href']
+                'category': category.text,
+                'name': name.text,
+                'value': value.text,
+                'link': link['href']
             })
 
         return results
