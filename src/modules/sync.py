@@ -12,16 +12,21 @@ class Sync:
         self.db = self.client['database']
         self.anuncios = self.db['anuncios']
 
-    def save(self, data):
+    def bulk_save(self, data):
         """
         Salva um anúncio no banco
         """
-        assert 'nome' in data
-        assert 'preco' in data
-        assert 'link' in data
-        inserted_id = self.anuncios.insert_one(data).inserted_id
-        print(f"Anuncio inserido, {inserted_id}")
+        result = self.anuncios.insert_many(data)
+        return result.inserted_ids
 
     def load(self, id):
         data = self.anuncios.find_one({'_id': id})
         return data
+
+    def get_all_anuncios(self):
+        anuncios = []
+        print("{} anuncios carregados".format(self.anuncios.count_documents({})))
+        data = self.anuncios.find()
+        for i in data:
+            anuncios.append(i)
+        return anuncios

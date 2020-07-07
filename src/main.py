@@ -7,8 +7,11 @@ def main():
     # telegram_bot = Bot()
     # telegram_bot.listen()
     scrapper = Scrapper()
-    scrapper.scrap_anuncios('munchkin')
-    # sync = Sync()
+    results = scrapper.scrap_anuncios('luxor')
+    sync = Sync()
+    sync.bulk_save(results)
+    anuncios = sync.get_all_anuncios()
+    print(anuncios)
 
 
 if __name__ == "__main__":
