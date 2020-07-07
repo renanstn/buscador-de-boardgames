@@ -11,10 +11,10 @@ class Scrapper:
         """
         Define as URLs e elementos utilizados no scrapping
         """
-        # URLs
-        self.url_anuncios = os.environ.get('URL_ANUNCIOS', 'https://www.ludopedia.com.br/anuncios')
+        self.url_anuncios = os.environ.get(
+            'URL_ANUNCIO', 'https://www.ludopedia.com.br/anuncios')
 
-    def __get(self, url, name):
+    def get_url(self, url, name):
         """
         Monta a URL e faz a request
         """
@@ -28,7 +28,9 @@ class Scrapper:
 
     def scrap_anuncios(self, name):
         """
-        Procura pelo boardgame na sessão de leilões
+        Procura pelo boardgame na sessão de anúncios
+        Retorna um dicionário com as informações principais do
+        jogo encontrado
         """
         response = self.__get(self.url_anuncios, name)
         bs4 = BeautifulSoup(response.text, 'html.parser')

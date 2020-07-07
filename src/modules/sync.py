@@ -12,11 +12,15 @@ class Sync:
         self.db = self.client['database']
         self.anuncios = self.db['anuncios']
 
-    def bulk_save(self, data):
+    def bulk_save(self, user_id, data):
         """
         Salva um anúncio no banco
         """
-        result = self.anuncios.insert_many(data)
+        result = self.anuncios.update_many(
+            {'user': user_id},
+            data,
+            True
+        )
         return result.inserted_ids
 
     def load(self, id):
