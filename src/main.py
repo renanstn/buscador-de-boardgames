@@ -20,10 +20,8 @@ def main():
 
     # Salvar os resultados
     sync = Sync()
-    sync.bulk_save(user_id, data)
-
-    anuncios = sync.get_all_anuncios()
-    print(anuncios)
+    # sync.bulk_save(user_id, data)
+    sync.clear_anuncios()
 
 
 if __name__ == "__main__":

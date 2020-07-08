@@ -34,3 +34,6 @@ class Sync:
         for i in data:
             anuncios.append(i)
         return anuncios
+
+    def clear_anuncios(self):
+        self.anuncios.delete_many({})

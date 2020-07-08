@@ -32,7 +32,7 @@ class Scrapper:
         Retorna um dicionário com as informações principais do
         jogo encontrado
         """
-        response = self.__get(self.url_anuncios, name)
+        response = self.get_url(self.url_anuncios, name)
         bs4 = BeautifulSoup(response.text, 'html.parser')
 
         result_list = bs4.find('ul', class_='row')
