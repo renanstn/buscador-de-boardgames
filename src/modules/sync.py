@@ -4,7 +4,7 @@ import pymongo
 
 class Sync:
     """
-    Classe responsável por armazenar e buscar dados no banco
+    Classe responsável por armazenar e buscar dados no mongo
     """
     def __init__(self):
         mongo_url = os.environ.get('MONGODB_URI', 'mongodb://mongo:27017/')
@@ -14,26 +14,32 @@ class Sync:
 
     def bulk_save(self, user_id, data):
         """
-        Salva um anúncio no banco
+        Atualiza os anuncios salvos de um usuario no banco
         """
-        result = self.anuncios.update_many(
-            {'user': user_id},
-            data,
-            True
-        )
+        self.anuncios.delete_many({'user_id': user_id})
+        result = self.anuncios.insert_many(data)
         return result.inserted_ids
 
-    def load(self, id):
-        data = self.anuncios.find_one({'_id': id})
+    def load(self, user_id):
+        """
+        Carrega todos os anúncios de um usuario
+        """
+        data = self.anuncios.find({'user_id': user_id})
         return data
 
     def get_all_anuncios(self):
-        anuncios = []
+        """
+        Retorna todos os anúncios do banco
+        """
         print("{} anuncios carregados".format(self.anuncios.count_documents({})))
         data = self.anuncios.find()
+        anuncios = []
         for i in data:
             anuncios.append(i)
         return anuncios
 
     def clear_anuncios(self):
+        """
+        Apaga todos os anúncios do banco
+        """
         self.anuncios.delete_many({})
