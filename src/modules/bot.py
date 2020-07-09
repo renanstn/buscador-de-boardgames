@@ -1,4 +1,5 @@
 from telegram.ext import Updater, CommandHandler
+from modules.sync import Sync
 
 
 class Bot:
@@ -39,7 +40,8 @@ class Bot:
             'chat_id': chat_id,
             'boardgame_name': boardgame_name
         }
-        # TODO Chamar sync para salvar as infos
+        sync = Sync()
+        sync.add_cadastro(data)
 
     def listen(self):
         """

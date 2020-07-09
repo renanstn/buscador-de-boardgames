@@ -10,7 +10,25 @@ class Sync:
         mongo_url = os.environ.get('MONGODB_URI', 'mongodb://mongo:27017/')
         self.client = pymongo.MongoClient(mongo_url)
         self.db = self.client['database']
+        self.cadastros = self.db['cadastros']
         self.anuncios = self.db['anuncios']
+
+    def add_cadastro(self, data):
+        """
+        Adiciona um boardgame para ser buscado
+        """
+        response = self.cadastros.insert_one(data)
+        return response.inserted_id
+
+    def load_cadastros(self):
+        """
+        Carrega todos os cadastros de buscas
+        """
+        data = self.cadastros.find()
+        cadastros = []
+        for i in data:
+            cadastros.append(i)
+        return cadastros
 
     def bulk_save(self, user_id, data):
         """
