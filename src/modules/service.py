@@ -27,8 +27,7 @@ class Service:
                         "type": {
                             "_in": [
                                 "game",
-                                "expansion",
-                                "accessory"
+                                "expansion"
                             ]
                         }
                     }
