@@ -8,10 +8,13 @@ def main():
     sync = Sync()
     service = Service()
 
-    salvos = sync.load_cadastros_by_id(chat_id)
-    for i in salvos:
-        data = service.busca(i['boardgame'])
-        print(data)
+    teste = service.busca('xaxaxaxaxaxa')
+    print(teste)
+
+    #salvos = sync.load_cadastros_by_id(chat_id)
+    #for i in salvos:
+        #data = service.busca(i['boardgame'])
+        #print(data)
 
     # Fazer o scrappin
     # scrapper = Scrapper()

@@ -26,38 +26,14 @@ class Sync:
         data = self.cadastros.find({'chat_id': chat_id})
         return data
 
-    def bulk_save(self, chat_id, data):
-        """
-        Atualiza os anuncios salvos de um usuario no banco
-        ### DEPRECIADO, APAGAR
-        """
-        self.anuncios.delete_many({'chat_id': chat_id})
-        result = self.anuncios.insert_many(data)
-        return result.inserted_ids
-
-    def load(self, chat_id):
-        """
-        Carrega todos os anúncios de um usuario
-        ### DEPRECIADO, APAGAR
-        """
-        data = self.anuncios.find({'chat_id': chat_id})
+    def load_all_cadastros(self):
+        data = self.cadastros.find()
         return data
 
-    def get_all_anuncios(self):
-        """
-        Retorna todos os anúncios do banco
-        ### DEPRECIADO, APAGAR
-        """
-        print("{} anuncios carregados".format(self.anuncios.count_documents({})))
-        data = self.anuncios.find()
-        anuncios = []
-        for i in data:
-            anuncios.append(i)
-        return anuncios
-
-    def clear_anuncios(self):
-        """
-        Apaga todos os anúncios do banco
-        ### DEPRECIADO, APAGAR
-        """
-        self.anuncios.delete_many({})
+    def atualiza_average_price(self, data, price):
+        self.cadastros.update({
+            'chat_id': data['chat_id'],
+            'boardgame': data['boardgame']
+        }, {
+            'average_price': price
+        })
