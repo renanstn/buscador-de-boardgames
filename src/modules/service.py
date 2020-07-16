@@ -25,10 +25,7 @@ class Service:
                             "_ilike": f"%{nome}%"
                         },
                         "type": {
-                            "_in": [
-                                "game",
-                                "expansion"
-                            ]
+                            "_in": ["game"]
                         }
                     }
                 },

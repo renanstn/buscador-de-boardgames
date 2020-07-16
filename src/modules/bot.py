@@ -1,3 +1,4 @@
+import os
 from telegram.ext import Updater, CommandHandler
 from modules.sync import Sync
 
@@ -18,15 +19,16 @@ class Bot:
         start_handler = CommandHandler('busca', self.busca)
 
         self.dispatcher.add_handler(start_handler)
+        # TODO Adicionar uma mensgaem padrão para qualquer outro comando
 
     def busca(self, update, context):
         """
         Recebe o nome de um boardgame para ser cadastrado
         """
         chat_id = update.effective_chat.id
-        boardgame_name = update.message.text.replace('/busca', '')
+        boardgame = update.message.text.replace('/busca', '')
 
-        if not boardgame_name:
+        if not boardgame:
             context.bot.send_message(
                 chat_id=chat_id,
                 text=(
@@ -37,9 +39,11 @@ class Bot:
             return
 
         data = {
-            'chat_id': chat_id,
-            'boardgame_name': boardgame_name
+            'chat_id': str(chat_id),
+            'boardgame': boardgame.strip(),
+            'average_price': None
         }
+
         sync = Sync()
         sync.add_cadastro(data)
 
