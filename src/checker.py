@@ -12,7 +12,24 @@ def main():
     for cadastro in cadastros:
         service_result = service.busca_preco_medio(cadastro['boardgame'])
         sync.atualiza_average_price(cadastro, service_result['price'])
+        if not service_result['price']:
+            continue
         scrapper_result = scrapper.scrap_anuncios(cadastro['boardgame'])
+
+        emitir_notificacao = compara_precos(service_result['price'], scrapper_result)
+
+        if emitir_notificacao:
+            print('emitir notificacao')
+            print(cadastro['boardgame'])
+
+
+def compara_precos(average, scrapper_results):
+    for item in scrapper_results:
+        valor = item['value'].replace('R$', '').replace(',', '.').strip()
+        if float(valor) < float(average):
+            return True
+
+    return False
 
 
 if __name__ == "__main__":

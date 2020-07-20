@@ -31,9 +31,9 @@ class Sync:
         return data
 
     def atualiza_average_price(self, data, price):
-        self.cadastros.update({
+        self.cadastros.update_one({
             'chat_id': data['chat_id'],
             'boardgame': data['boardgame']
-        }, {
+        }, {'$set': {
             'average_price': price
-        })
+        }})
