@@ -10,6 +10,7 @@ services:
             - mongo
         volumes:
             - ./src:/app
+        env_file: .env
 
     bot:
         build:

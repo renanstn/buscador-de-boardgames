@@ -1,6 +1,7 @@
 from modules.sync import Sync
 from modules.scrapper import Scrapper
 from modules.service import Service
+from modules.bot import Bot
 
 
 def main():
@@ -19,8 +20,9 @@ def main():
         emitir_notificacao = compara_precos(service_result['price'], scrapper_result)
 
         if emitir_notificacao:
-            print('emitir notificacao')
-            print(cadastro['boardgame'])
+            bot = Bot()
+            msg = 'teste'
+            bot.send_notification(cadastro['chat_id'], msg)
 
 
 def compara_precos(average, scrapper_results):

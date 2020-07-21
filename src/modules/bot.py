@@ -1,4 +1,5 @@
 import os
+from telegram.bot import Bot as TBot
 from telegram.ext import Updater, CommandHandler
 from modules.sync import Sync
 
@@ -13,6 +14,7 @@ class Bot:
         Inicializa o bot com os parâmetros necessários e os handlers
         """
         token = os.environ.get('TELEGRAM_TOKEN')
+        self.bot = TBot(token)
         self.updater = Updater(token=token, use_context=True)
         self.dispatcher = self.updater.dispatcher
 
@@ -59,6 +61,6 @@ class Bot:
         Envia uma mensagem para o usuário
         """
         self.bot.send_message(
-            self.chat_id,
+            chat_id,
             message
         )
