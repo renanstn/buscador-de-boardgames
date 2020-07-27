@@ -42,18 +42,10 @@ class Bot:
             return
 
         service = Service()
-        boardgame = boardgame.strip()
-        preco_medio = service.busca_preco_medio(boardgame).get('preco')
-
-        data = {
-            'chat_id': str(chat_id),
-            'boardgame': boardgame,
-            'preco_medio': preco_medio
-        }
-
         sync = Sync()
+        boardgame = boardgame.strip().lower()
 
-        ja_cadastrado = sync.verifica_cadastro_existente(chat_id, boardgame)
+        ja_cadastrado = sync.verifica_cadastro_existente(str(chat_id), boardgame)
         if ja_cadastrado:
             context.bot.send_message(
                 chat_id=chat_id,
@@ -61,6 +53,12 @@ class Bot:
             )
             return
 
+        preco_medio = service.busca_preco_medio(boardgame).get('preco')
+        data = {
+            'chat_id': str(chat_id),
+            'boardgame': boardgame,
+            'preco_medio': preco_medio
+        }
         sync.add_cadastro(data)
 
         context.bot.send_message(

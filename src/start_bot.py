@@ -1,5 +1,5 @@
 from modules.bot import Bot
-from modules.sync import Sync
+
 
 def main():
     telegram_bot = Bot()
