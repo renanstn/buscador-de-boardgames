@@ -8,6 +8,7 @@ class Sync:
     """
     def __init__(self):
         mongo_url = os.environ.get('MONGODB_URI', 'mongodb://mongo:27017/')
+        mongo_url += '?retryWrites=false'
         self.client = pymongo.MongoClient(mongo_url, retryWrites=False)
         self.db = self.client['database']
         self.cadastros = self.db['cadastros']
