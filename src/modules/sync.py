@@ -16,24 +16,24 @@ class Sync:
         """
         Adiciona um boardgame para ser buscado
         """
-        response = self.cadastros.insert_one(data)
-        return response.inserted_id
+        resposta = self.cadastros.insert_one(data)
+        return resposta.inserted_id
 
-    def load_cadastros_by_id(self, chat_id):
+    def busca_cadastro_por_id(self, chat_id):
         """
         Carrega todos os cadastros de um usuario
         """
-        data = self.cadastros.find({'chat_id': chat_id})
-        return data
+        dados = self.cadastros.find({'chat_id': chat_id})
+        return dados
 
-    def load_all_cadastros(self):
-        data = self.cadastros.find()
-        return data
+    def carrega_todos_os_cadastros(self):
+        dados = self.cadastros.find()
+        return dados
 
-    def atualiza_average_price(self, data, price):
+    def atualiza_preco_medio(self, data, price):
         self.cadastros.update_one({
             'chat_id': data['chat_id'],
             'boardgame': data['boardgame']
         }, {'$set': {
-            'average_price': price
+            'preco_medio': price
         }})

@@ -53,15 +53,16 @@ class Service:
         result = requests.post(self.url, json=query)
         return result.json()
 
-    def busca_preco_medio(self, nome):
-        data = self.busca(nome)
+    def busca_preco_medio(self, boardgame):
+        data = self.busca(boardgame)
+
         if len(data['data']['list']) == 0:
             return {
-                'boardgame': nome,
-                'price': None
+                'boardgame': boardgame,
+                'preco': None
             }
         else:
             return {
                 'boardgame': data['data']['list'][0]['product']['name'],
-                'price': data['data']['list'][0]['min_price'],
+                'preco': data['data']['list'][0]['min_price'],
             }

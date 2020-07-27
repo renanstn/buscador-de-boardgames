@@ -37,7 +37,7 @@ class Scrapper:
 
         result_list = bs4.find('ul', class_='row')
         itens = result_list.find_all('li')
-        results = []
+        resultados = []
 
         for item in itens:
             dl = item.find('dl')
@@ -47,11 +47,11 @@ class Scrapper:
             link = dl.find('a')
             value = dl.find('dd', class_='proximo_lance')
 
-            results.append({
+            resultados.append({
                 'category': category.text,
                 'name': name.text,
                 'value': value.text,
                 'link': link['href']
             })
 
-        return results
+        return resultados

@@ -18,12 +18,12 @@ class Bot:
         self.updater = Updater(token=token, use_context=True)
         self.dispatcher = self.updater.dispatcher
 
-        start_handler = CommandHandler('busca', self.busca)
+        start_handler = CommandHandler('busca', self.cadastra_nova_busca)
 
         self.dispatcher.add_handler(start_handler)
         # TODO Adicionar uma mensgaem padrão para qualquer outro comando
 
-    def busca(self, update, context):
+    def cadastra_nova_busca(self, update, context):
         """
         Recebe o nome de um boardgame para ser cadastrado
         """
@@ -43,7 +43,7 @@ class Bot:
         data = {
             'chat_id': str(chat_id),
             'boardgame': boardgame.strip(),
-            'average_price': None
+            'preco_medio': None
         }
 
         sync = Sync()
@@ -56,11 +56,11 @@ class Bot:
         print('listening...')
         self.updater.start_polling()
 
-    def send_notification(self, chat_id, message):
+    def enviar_notificacao(self, chat_id, mensagem):
         """
         Envia uma mensagem para o usuário
         """
         self.bot.send_message(
             chat_id,
-            message
+            mensagem
         )
