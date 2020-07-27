@@ -1,0 +1,1 @@
+web: cd src && python3 start_bot.py
