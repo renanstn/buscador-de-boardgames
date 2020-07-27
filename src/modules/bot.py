@@ -2,6 +2,7 @@ import os
 from telegram.bot import Bot as TBot
 from telegram.ext import Updater, CommandHandler
 from modules.sync import Sync
+from modules.service import Service
 
 
 class Bot:
@@ -40,14 +41,28 @@ class Bot:
             )
             return
 
+        service = Service()
+        boardgame = boardgame.strip()
+        preco_medio = service.busca_preco_medio(boardgame)
+
         data = {
             'chat_id': str(chat_id),
-            'boardgame': boardgame.strip(),
-            'preco_medio': None
+            'boardgame': boardgame,
+            'preco_medio': preco_medio
         }
 
         sync = Sync()
         sync.add_cadastro(data)
+
+        context.bot.send_message(
+            chat_id=chat_id,
+            text=(
+                f"Jogo '{boardgame}' cadastrado com sucesso!\n"
+                f"O preço médio deste produto segundo o 'Compara Jogos' é de {preco_medio}\n"
+                "Buscas periódicas serão feitas por este jogo a partir de agora.\n"
+                "Te avisarei caso encontre algum anúncio cujo preço esteja abaixo da média.\n"
+            )
+        )
 
     def listen(self):
         """
