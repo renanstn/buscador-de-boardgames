@@ -27,7 +27,7 @@ class Sync:
             'chat_id': chat_id,
             'boardgame': boardgame
         })
-        return len(resultado) > 0
+        return resultado.count() > 0
 
     def busca_cadastro_por_id(self, chat_id):
         """
