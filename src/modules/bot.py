@@ -14,9 +14,11 @@ class Bot:
         """
         Inicializa o bot com os parâmetros necessários e os handlers
         """
-        token = os.environ.get('TELEGRAM_TOKEN')
-        self.bot = TBot(token)
-        self.updater = Updater(token=token, use_context=True)
+        self.token = os.environ.get('TELEGRAM_TOKEN')
+        self.port = int(os.environ.get("PORT", "5000"))
+
+        self.bot = TBot(self.token)
+        self.updater = Updater(token=self.token, use_context=True)
         self.dispatcher = self.updater.dispatcher
 
         start_handler = CommandHandler('busca', self.cadastra_nova_busca)
@@ -75,8 +77,14 @@ class Bot:
         """
         Inicia o monitoramento de mensagens do bot
         """
+        # self.updater.start_polling()
+        self.updater.start_webhook(
+            listen='0.0.0.0',
+            port=self.port,
+            url_path=self.token
+        )
+        self.updater.bot.set_webhook('https://boardgame-scrapper-bot.herokuapp.com/' + self.token)
         print('listening...')
-        self.updater.start_polling()
 
     def enviar_notificacao(self, chat_id, mensagem):
         """
