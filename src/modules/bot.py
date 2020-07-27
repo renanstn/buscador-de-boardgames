@@ -43,7 +43,7 @@ class Bot:
 
         service = Service()
         boardgame = boardgame.strip()
-        preco_medio = service.busca_preco_medio(boardgame)
+        preco_medio = service.busca_preco_medio(boardgame).get('preco')
 
         data = {
             'chat_id': str(chat_id),
@@ -58,7 +58,7 @@ class Bot:
             chat_id=chat_id,
             text=(
                 f"Jogo '{boardgame}' cadastrado com sucesso!\n"
-                f"O preço médio deste produto segundo o 'Compara Jogos' é de {preco_medio}\n"
+                f"O preço médio deste produto segundo o 'Compara Jogos' é de R$ {preco_medio}\n"
                 "Buscas periódicas serão feitas por este jogo a partir de agora.\n"
                 "Te avisarei caso encontre algum anúncio cujo preço esteja abaixo da média.\n"
             )
