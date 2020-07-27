@@ -7,7 +7,7 @@ class Sync:
     Classe responsável por armazenar e buscar dados no mongo
     """
     def __init__(self):
-        mongo_url = os.environ.get('MONGODB_URI', 'mongodb://mongo:27017/')
+        mongo_url = os.environ.get('MONGODB_URI', 'mongodb://mongo:27017/') + '?retryWrites=false'
         self.client = pymongo.MongoClient(mongo_url)
         self.db = self.client['database']
         self.cadastros = self.db['cadastros']
