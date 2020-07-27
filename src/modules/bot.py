@@ -52,6 +52,15 @@ class Bot:
         }
 
         sync = Sync()
+
+        ja_cadastrado = sync.verifica_cadastro_existente(chat_id, boardgame)
+        if ja_cadastrado:
+            context.bot.send_message(
+                chat_id=chat_id,
+                text="Este jogo já foi cadastrado e já está sendo monitorado."
+            )
+            return
+
         sync.add_cadastro(data)
 
         context.bot.send_message(

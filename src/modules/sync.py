@@ -19,6 +19,16 @@ class Sync:
         resposta = self.cadastros.insert_one(data)
         return resposta.inserted_id
 
+    def verifica_cadastro_existente(self, chat_id, boardgame):
+        """
+        Verifica se um usuário já possui o boardgame cadastrado
+        """
+        resultado = self.cadastros.find({
+            'chat_id': chat_id,
+            'boardgame': boardgame
+        })
+        return len(resultado) > 0
+
     def busca_cadastro_por_id(self, chat_id):
         """
         Carrega todos os cadastros de um usuario
