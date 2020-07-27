@@ -1,11 +1,11 @@
 version: '3'
 
 services:
-    app:
+    checker:
         build:
             context: ./src
-            dockerfile: Dockerfile-service
-        container_name: app
+            dockerfile: Dockerfile-checker
+        container_name: checker
         depends_on:
             - mongo
         volumes:

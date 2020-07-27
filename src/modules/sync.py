@@ -40,10 +40,10 @@ class Sync:
         dados = self.cadastros.find()
         return dados
 
-    def atualiza_preco_medio(self, data, price):
+    def atualiza_preco_medio(self, data, preco):
         self.cadastros.update_one({
             'chat_id': data['chat_id'],
             'boardgame': data['boardgame']
         }, {'$set': {
-            'preco_medio': price
+            'preco_medio': preco
         }})
