@@ -59,3 +59,14 @@ class Sync:
             (Cadastros.chat_id == data.get('chat_id')) &
             (Cadastros.boardgame == data.get('boardgame'))
         ).execute()
+
+    def remove_cadastro(self, chat_id, boardgame):
+        """
+        Remove um boardgame dos cadastros
+        """
+        deleted = Cadastros.delete().where(
+            (Cadastros.chat_id == chat_id) &
+            (Cadastros.boardgame == boardgame)
+        ).execute()
+
+        return deleted
