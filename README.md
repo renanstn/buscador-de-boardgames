@@ -8,7 +8,7 @@ Projeto que compara preços de boardgames anunciados do [Ludopedia](https://www.
 
 ## O que é
 
-- Este bot serve para monitorar o preço de um boardgame que você tenha interesse, no site de leilões [Ludopedia](https://www.ludopedia.com.br/)
+- Este bot serve para monitorar o preço de um boardgame que você tenha interesse, no site de leilões [Ludopedia](https://www.ludopedia.com.br/). Fiz a pedido de um amigo que é viciado em comprar boardgames nesses leilões da vida.
 - O preço dos anúncios do [Ludopedia](https://www.ludopedia.com.br/) é comparado com o preço médio do jogo no [Compara Jogos](https://www.comparajogos.com.br/)
 - Caso o preço de um anúncio esteja abaixo da média, o bot te notifica, informando o jogo, o preço, e o link
 
