@@ -28,7 +28,7 @@ Este repositório possuem 2 scripts que são pontos de partida: o `start_bot.py`
 Dentro de `modules`, temos:
 
 - O `bot`, é o Bot (dã), implementado usando o [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot)
-- O `scrapper` é quem faz a busca no ludopedia
+- O `scrapper` é quem faz a busca no ludopedia, aqui eu uso o [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) para fazer o web scrapping
 - O `service` (não arrumei um nome melhor) utiliza o backend do Compara Jogos para buscar o preço médio, através de graphQL (agradeço de coração aos devs do Compara Jogos pelo endpoint)
 - O `sync` é quem manipula o banco. Utilizei o [Peewee](http://docs.peewee-orm.com/en/latest/) como ORM
 
