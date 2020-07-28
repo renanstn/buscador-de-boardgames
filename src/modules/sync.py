@@ -1,5 +1,15 @@
 import os
-import pymongo
+from peewee import Model, CharField, PostgresqlDatabase
+from playhouse.db_url import connect
+
+
+class Cadastros(Model):
+    chat_id = CharField()
+    boardgame = CharField()
+    preco_medio = CharField(null=True)
+
+    class Meta:
+        database = None
 
 
 class Sync:
@@ -7,43 +17,45 @@ class Sync:
     Classe responsável por armazenar e buscar dados no mongo
     """
     def __init__(self):
-        mongo_url = os.environ.get('MONGODB_URI', 'mongodb://mongo:27017/')
-        self.client = pymongo.MongoClient(mongo_url)
-        self.db = self.client['database']
-        self.cadastros = self.db['cadastros']
+        DATABASE_URL = os.environ.get(
+            'DATABASE_URL',
+            'postgresql://postgres:admin@postgres:5432/postgres'
+        )
+        self.db = connect(DATABASE_URL)
+        tabela_cadastros = Cadastros()
+        tabela_cadastros._meta.database = self.db
+        tabela_cadastros.create_table()
 
     def add_cadastro(self, data):
         """
         Adiciona um boardgame para ser buscado
         """
-        resposta = self.cadastros.insert_one(data)
-        return resposta.inserted_id
+        Cadastros.create(
+            chat_id=data.get('chat_id'),
+            boardgame=data.get('boardgame'),
+            preco_medio=data.get('preco_medio')
+        )
 
     def verifica_cadastro_existente(self, chat_id, boardgame):
         """
         Verifica se um usuário já possui o boardgame cadastrado
         """
-        resultado = self.cadastros.find({
-            'chat_id': chat_id,
-            'boardgame': boardgame
-        })
-        return resultado.count() > 0
-
-    def busca_cadastro_por_id(self, chat_id):
-        """
-        Carrega todos os cadastros de um usuario
-        """
-        dados = self.cadastros.find({'chat_id': chat_id})
-        return dados
+        query = Cadastros.select().where(
+            (Cadastros.chat_id == chat_id) &
+            (Cadastros.boardgame == boardgame)
+        )
+        return query.count() > 0
 
     def carrega_todos_os_cadastros(self):
-        dados = self.cadastros.find()
-        return dados
+        query = Cadastros.select()
+        return [{
+            'chat_id': i.chat_id,
+            'boardgame': i.boardgame
+            } for i in query
+        ]
 
     def atualiza_preco_medio(self, data, preco):
-        self.cadastros.update_one({
-            'chat_id': data['chat_id'],
-            'boardgame': data['boardgame']
-        }, {'$set': {
-            'preco_medio': preco
-        }})
+        Cadastros.update({Cadastros.preco_medio: preco}).where(
+            (Cadastros.chat_id == data.get('chat_id')) &
+            (Cadastros.boardgame == data.get('boardgame'))
+        ).execute()

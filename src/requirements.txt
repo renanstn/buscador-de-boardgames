@@ -1,4 +1,5 @@
 python-telegram-bot
 requests
 beautifulsoup4
-pymongo
+peewee
+psycopg2-binary

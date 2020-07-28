@@ -51,7 +51,11 @@ class Service:
         }
 
         result = requests.post(self.url, json=query)
-        return result.json()
+
+        if result.status_code == 200:
+            return result.json()
+        else:
+            print("Houve um problema com a consulta do preço no ComparaJogos")
 
     def busca_preco_medio(self, boardgame):
         data = self.busca(boardgame)
