@@ -25,7 +25,8 @@ Este repositório possuem 2 scripts que são pontos de partida: o `start_bot.py`
 - O `start_bot` inicializa o bot e mantém ele ouvindo os comandos. Todo cadastro recebido é salvo no postgres através do `sync`
 - O `checker` é o script que faz a verificação periódica, compara os preços, e notifica o usuário. Um scheduler no Heroku roda esse script de hora em hora
 
-### Dentro de `modules`, temos:
+Dentro de `modules`, temos:
+
 - O `bot`, é o Bot (dã), implementado usando o [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot)
 - O `scrapper` é quem faz a busca no ludopedia
 - O `service` (não arrumei um nome melhor) utiliza o backend do Compara Jogos para buscar o preço médio, através de graphQL (agradeço de coração aos devs do Compara Jogos pelo endpoint)
