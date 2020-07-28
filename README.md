@@ -20,6 +20,31 @@ Projeto que compara preços de boardgames anunciados do [Ludopedia](https://www.
 
 ## Como eu fiz
 
+Para desenvolvimento local eu utilizei o Docker-compose. Caso queira rodar localmente suba o banco com:
+
+```
+docker-compose up postgres adminer
+```
+*Com o adminer você pode ver os dados no banco em http://localhost:8080*
+
+Crie um arquivo `.env` na raíz do projeto com a seguinte estrutura:
+
+```
+TELEGRAM_TOKEN=<seu:token_do_telegram>
+```
+
+Suba o Bot com
+
+```
+docker-compose up bot
+```
+
+E para executar o script de verificação:
+
+```
+docker-compose up checker
+```
+-------
 Este repositório possuem 2 scripts que são pontos de partida: o `start_bot.py` e o `checker.py`.
 
 - O `start_bot` inicializa o bot e mantém ele ouvindo os comandos. Todo cadastro recebido é salvo no postgres através do `sync`
