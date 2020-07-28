@@ -21,9 +21,11 @@ class Bot:
         self.updater = Updater(token=self.token, use_context=True)
         self.dispatcher = self.updater.dispatcher
 
-        start_handler = CommandHandler('busca', self.cadastra_nova_busca)
+        busca_handler = CommandHandler('busca', self.cadastra_nova_busca)
+        cancela_handler = CommandHandler('cancela', self.cancela_busca)
 
-        self.dispatcher.add_handler(start_handler)
+        self.dispatcher.add_handler(busca_handler)
+        self.dispatcher.add_handler(cancela_handler)
         # TODO Adicionar uma mensgaem padrão para qualquer outro comando
 
     def cadastra_nova_busca(self, update, context):
@@ -72,6 +74,28 @@ class Bot:
                 "Te avisarei caso encontre algum anúncio cujo preço esteja abaixo da média.\n"
             )
         )
+
+    def cancela_busca(self, update, context):
+        """
+        Cancela o rastreamento de um boardgame
+        """
+        chat_id = update.effective_chat.id
+        boardgame = update.message.text.replace('/cancela', '')
+        boardgame = boardgame.strip().lower()
+
+        sync = Sync()
+        removido = sync.remove_cadastro(str(chat_id), boardgame)
+
+        if removido:
+            context.bot.send_message(
+                chat_id=chat_id,
+                text=f"O jogo '{boardgame}' foi removido da lista de buscas periódicas."
+            )
+        else:
+            context.bot.send_message(
+                chat_id=chat_id,
+                text="Não foi encontrado nenhum jogo com este nome cadastrado."
+            )
 
     def listen(self):
         """
