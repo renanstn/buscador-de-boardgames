@@ -24,7 +24,7 @@ class Bot:
         busca_handler = CommandHandler('busca', self.cadastra_nova_busca)
         cancela_handler = CommandHandler('cancela', self.cancela_busca)
 
-        self.dispatcher.add_handler(start_handler)
+        self.dispatcher.add_handler(busca_handler)
         self.dispatcher.add_handler(cancela_handler)
         # TODO Adicionar uma mensgaem padrão para qualquer outro comando
 
@@ -87,9 +87,15 @@ class Bot:
         removido = sync.remove_cadastro(str(chat_id), boardgame)
 
         if removido:
-            pass
+            context.bot.send_message(
+                chat_id=chat_id,
+                text=f"O jogo '{boardgame}' foi removido da lista de buscas periódicas."
+            )
         else:
-            pass
+            context.bot.send_message(
+                chat_id=chat_id,
+                text="Não foi encontrado nenhum jogo com este nome cadastrado."
+            )
 
     def listen(self):
         """

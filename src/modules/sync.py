@@ -69,4 +69,4 @@ class Sync:
             (Cadastros.boardgame == boardgame)
         ).execute()
 
-        return deleted
+        return deleted > 0
