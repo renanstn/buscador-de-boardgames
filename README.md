@@ -59,6 +59,6 @@ Dentro de `modules`, temos:
 
 ## TODO
 - [ ] Não permitir que o bot notifique o usuário mais de uma vez caso encontre um produto abaixo do preço
-- [ ] Adicionar um comando `/cancela`, que **remove** um jogo da busca periódica
+- [x] Adicionar um comando `/cancela`, que **remove** um jogo da busca periódica
 
 <img src="https://github.com/renanstd/buscador-de-boardgames/blob/master/screenshots/img02.jpg" width="360" height="720"/>
