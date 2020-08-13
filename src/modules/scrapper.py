@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 
 class Scrapper:
     """
-    Efetura o web scrap no site do ludopedia
+    Efetua o web scrap no site do ludopedia
     """
     def __init__(self):
         """
