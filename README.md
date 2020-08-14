@@ -46,7 +46,7 @@ E para executar o script de verificação:
 docker-compose up checker
 ```
 -------
-Este repositório possuem 2 scripts que são pontos de partida: o `start_bot.py` e o `checker.py`.
+Este repositório possui 2 scripts que são pontos de partida: o `start_bot.py` e o `checker.py`.
 
 - O `start_bot` inicializa o bot e mantém ele ouvindo os comandos. Todo cadastro recebido é salvo no postgres através do `sync`
 - O `checker` é o script que faz a verificação periódica, compara os preços, e notifica o usuário. Um scheduler no Heroku roda esse script de hora em hora
