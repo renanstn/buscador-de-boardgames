@@ -17,6 +17,7 @@ Projeto que compara preços de boardgames anunciados do [Ludopedia](https://www.
 - Este bot está online atualmente, basta clicar no [aqui](https://t.me/board_scrapper_bot) para acessá-lo a em seu Telegram
 - Cadastre produtos neles com o comando `/busca <nome do jogo>`
 - Pronto. A partir de agora você receberá notificações caso  o bot encontre algum anúncio com preço abaixo da média
+- Para cancelar a busca de um produto, utilize o comando `/cancela <nome do jogo>`
 
 ## Como eu fiz
 
