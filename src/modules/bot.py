@@ -1,6 +1,7 @@
 import os
 from telegram.bot import Bot as TBot
 from telegram.ext import Updater, CommandHandler
+from telegram.error import Unauthorized
 from modules.sync import Sync
 from modules.service import Service
 
@@ -114,7 +115,11 @@ class Bot:
         """
         Envia uma mensagem para o usuário
         """
-        self.bot.send_message(
-            chat_id,
-            mensagem
-        )
+        try:
+            self.bot.send_message(
+                chat_id,
+                mensagem
+            )
+        except Unauthorized:
+            # Ignora erro causado por pessoas que deram block no bot :(
+            pass
